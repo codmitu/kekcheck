@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/kekCheck-logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/AbChess-0.3.0.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <title>KeKCheck</title>
+</head>
+
+<body>
+    <div id="shadow-frame">
+        <menu>
+            <button id="about"><i class="far fa-question-circle"></i></button>
+            <button id="leaderboard"><i class="fas fa-crown"></i></button>
+            <i class="fas fa-caret-right show-menu-btn show"></i>
+            <i class="fas fa-caret-left hide-menu-btn"></i>
+        </menu>
+
+
+        <article class="about">
+            <div>
+                <h2>How to play?</h2>
+                <p>
+                    1. Optional: ✅Check the <b>VIP/SUB</b> checkboxes so only vip and subscribers can join and vote,
+                    otherwise
+                    everyone can. <i>These cannot be changed mid game</i>.
+                    <br>
+                    2. Type a valid Twitch channel inside the <b>text box</b> in the up-left corner and press
+                    <b>Enter</b>.
+                    <i>The
+                        name cannot be changed mid game</i>.
+                    <br>
+                    3. Now chat can type <b>!join</b> to join the <b>Spectators area </b>(right side of the screen). Max
+                    number is 300.
+                    <br>
+                    4. Streamer can adjust ⏳<b>max time</b> for a move from 10s to 120s. <i>This time cannot be changed
+                        mid
+                        game</i>.
+                    <br>
+                    5. After <b>32+</b> joined the Spectators area the streamer can <b>START</b> the game.
+                    <br>
+                    6. Once the streamer presses START, 32 viewers (16 for each side) from the Spectators area will
+                    move
+                    on the ▩chessboard <b>as pieces</b>. These puppets cannot vote🤐 for pieces to move but can use
+
+                    <u>twitch emotes <i class="fab fa-twitch"></i></u> to
+                    display above their name, only some are available.
+                    <br>
+                    7. Streamer can make the first move then chat will 💬vote a move as: <b>g8h6</b>, this means piece
+                    (Knight♞) from
+                    G8 to H6. The piece will move <u>automaticaly</u> and the streamer cannot click on chat's pieces nor
+                    streamer can vote or !join.
+                    <br>
+                    8. Chat's
+                    votes are accounted only when it's chat's turn and only valid moves are
+                    considered (min people to vote: 2. So 1 streamer + 2 in the chat or spectator + 32 on the chessboard
+                    = 35 minimum people to play the game). If the <u>most voted move</u> doesnt change within 5s
+                    then
+                    chat will move its piece sooner than the remaining time.
+                    <br>
+                    9. Game ends on <b>draw</b> or <b>win</b>. A draw can be called by the rules of <i>50Moves,
+                        Stalement, Insufficient material</i> and a win can be called after one is in
+                    <i>checkmate</i>
+                    or on <i>timeout</i>, also the streamer looses the match on refresh/reset in mid game.
+                    <br>
+                    10. The game is hidden on screens not wider than 900px⛔
+                </p>
+            </div>
+        </article>
+        <article class="leaderboard">
+            <div>
+                <h2>Leaderboard</h2>
+                <p>coming soon...</p>
+            </div>
+        </article>
+
+
+        <div id="change-bg">
+            <small>Change background</small>
+            <div class="change-bg-buttons">
+                <button class="prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div id="change-size">
+            <small>Change Size</small>
+            <div class="change-size-buttons">
+                <button class="increase"><i class="fas fa-search-plus"></i></button>
+                <button class="decrease"><i class="fas fa-search-minus"></i></button>
+            </div>
+        </div>
+    </div>
+
+
+    <button onclick="openFullscreen();" id="full-screen"><i class="fas fa-expand-arrows-alt"></i></button>
+
+
+
+
+
+    <aside id="streamer">
+        <form>
+            <input type="text" id="twitch-channel-input" spellcheck="false" autocomplete="off"
+                placeholder="Twitch channel" title="Press 'Enter' after typing">
+        </form>
+        <h2 id="streamer-frame">Streamer</h2>
+        <div id="streamer-last-moves">
+        </div>
+    </aside>
+
+
+    <main id="chess-container">
+        <header class="info-container">
+            <h3 id="game-info"></h3>
+        </header>
+        <div id="chessboard"></div>
+        <div class="join-selection">
+            <div class="selection">Only:</div>
+            <div class="selection vip"></div>
+            <div class="selection sub"></div>
+        </div>
+        <div id="time-container">
+            <div id="arrows"></div>
+            <div class="circle"></div>
+            <div id="time-remaining"></div>
+            <div class="seconds-btns-container">
+                <button>+</button>
+                <button>-</button>
+            </div>
+        </div>
+        <button id="start-btn"></button>
+    </main>
+
+
+
+    <aside id="chat">
+        <div class="chat-bubble"></div>
+        <h1 class="chat-header">Chat</h1>
+        <div id="spectators"></div>
+        <div id="max-spectators">Spectators: <span id="number-of-spectators"></span>/300</div>
+        <div id="chat-last-moves">
+        </div>
+    </aside>
+
+
+    <article id="modal">
+        <div class="modal-container">
+            <h3>Do you want to restart the game?</h3>
+            <div class="modal-btns-container">
+                <button id="modal-yes">YES</button>
+                <button id="modal-no">NO</button>
+            </div>
+        </div>
+    </article>
+    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+    <script src="./scripts/AbChess-0.3.0.js"></script>
+    <script src="./scripts/script.js"></script>
+</body>
+
+</html>
