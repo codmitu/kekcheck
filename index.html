@@ -40,35 +40,45 @@
                     <li>Type a valid Twitch channel inside the <b>text box</b> in the up-left corner and press
                         <b>Enter</b>. <i>The
                             name cannot be changed in mid game</i>.</li>
-                    <li>Now chat can type <b>!join</b> to join the <b>Spectators area </b>(right side of the screen).
+                    <li>Now chat can type <b>!join</b> to join the <b>Spectators area </b>(right side of the
+                        screen).
                         Max
                         number is 300, but everyone can play.</li>
-                    <li>Streamer can adjust ⏳<b>max time</b> for a move from 10s to 120s. <i>This time cannot be changed
+                    <li>Streamer can adjust ⏳<b>max time</b> for a move from 10s to 120s. <i>This time cannot be
+                            changed
                             in mid
                             game</i>.</li>
                     <li>After <b>32+</b> joined the Spectators area the streamer can <b>START</b> the game.</li>
                     <li>Once the streamer presses START, 32 viewers (16 for each side) from the Spectators area will
                         move on the ▩chessboard <b>as pieces</b>. These cannot vote🤐 for pieces to move.
-                    <li>Streamer needs to make the first move then chat will 💬vote a move as: <b>g8h6</b>, this means
+                    <li>Streamer needs to make the first move then chat will 💬vote a move as: <b>g8h6</b>, this
+                        means
                         piece
                         (Knight♞) from
-                        G8 to H6. The piece will move <u>automaticaly</u> and the streamer cannot click on chat's pieces
+                        G8 to H6. The piece will move <u>automaticaly</u> and the streamer cannot click on chat's
+                        pieces
                         nor streamer can vote or !join.</li>
-                    <li>Chat's votes are accounted only when it's chat's turn and only valid moves are considered (min
+                    <li>Chat's votes are accounted only when it's chat's turn and only valid moves are considered
+                        (min
                         people to vote = 2. So 2 + 1 streamer + 32 on the
-                        chessboard = 35 minimum people to play the game). If the <u>most voted move</u> doesnt change
+                        chessboard = 35 minimum people to play the game). If the <u>most voted move</u> doesnt
+                        change
                         within 5s then
                         chat will move its piece sooner than the remaining
                         time.</li>
-                    <li><b>Promotion</b>: If a Pawn reaches the oppsite side it can be <u>replaced</u> with one of the
+                    <li><b>Promotion</b>: If a Pawn reaches the oppsite side it can be <u>replaced</u> with one of
+                        the
                         following: Queen,
-                        Rook, Bishop and Knight, no matter if they already own a Queen or two Knights. Chat's promotion
+                        Rook, Bishop and Knight, no matter if they already own a Queen or two Knights. Chat's
+                        promotion
                         will be randomly
                         selected.</li>
                     <li>Game ends on <b>draw</b> or <b>win</b>. A draw can be called by the rules of <i>50Moves,
-                            Stalement, Insufficient material</i> and a win can be called after one is <i>checkmate</i>
+                            Stalement, Insufficient material</i> and a win can be called after one is
+                        <i>checkmate</i>
                         or <i>timeout</i>.</li>
-                    <li>Scores in Leaderboard are sorted by <b>MatchPoints</b>, (1 MP = 3 GamePoints). <i>Chat gains 1GP
+                    <li>Scores in Leaderboard are sorted by <b>MatchPoints</b>, (1 MP = 3 GamePoints). <i>Chat gains
+                            1GP
                             if streamer presses RESET or refreshes the browser , restarts the computer or goes to
                             shopping in mid game</i></li>
                 </ol>
@@ -161,7 +171,6 @@
         </div>
     </aside>
 
-
     <article id="modal">
         <div class="modal-container">
             <h3>Do you want to restart the game?</h3>
@@ -177,7 +186,7 @@
     <script>
         setTimeout(() => {
             document.querySelector('.loading-screen').remove();
-        }, 1300);
+        }, 1500);
         let loading = document.querySelector('.percent');
         let counter = 0;
 

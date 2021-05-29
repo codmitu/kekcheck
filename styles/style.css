@@ -133,7 +133,7 @@ body::before {
     top: 0;
     left: -50px;
     background-color: var(--colorBrown2);
-    animation: loading 1s cubic-bezier(0.35, 0.95, 0.795, 0.035) forwards;
+    animation: loading 1.2s cubic-bezier(0.35, 0.95, 0.795, 0.035) forwards;
 }
 
 @keyframes loading {
@@ -1081,7 +1081,7 @@ tr:nth-child(odd) {
 }
 
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 969px) {
 
     a,
     button,
@@ -1097,11 +1097,4 @@ tr:nth-child(odd) {
         display: none;
     }
 
-}
-
-@media only screen and (max-width: 499px) {
-
-    body {
-        display: none;
-    }
 }

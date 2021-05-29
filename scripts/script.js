@@ -10,7 +10,12 @@ var body = document.body;
 doc.addEventListener("contextmenu", e => {
     e.preventDefault();
 })
-
+function reportWindowSize() {
+    if (window.innerWidth < 969) {
+        alert("need a browser wider than 969px to play")
+    }
+}
+reportWindowSize();
 
 
 const chessboard = document.querySelector("#chessboard");
