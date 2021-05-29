@@ -290,7 +290,7 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
         }
         if (oldMove !== votedMove) {
             clearTimeout(timer)
-            timeToMove = 5;
+            timeToMove = 10;
             if (timeToMove > seconds.innerText) {
                 timeToMove = seconds.innerText - 1;
             }
