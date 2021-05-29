@@ -201,10 +201,10 @@ form.addEventListener("submit", e => {
     getScores();
     streamerScore.innerText = "";
     chatScore.innerText = "";
-    // if (streamerInput.value.toLowerCase() !== "wolfabelle") {
-    //     alert("Only works with Wolfabelle channel while in testing.");
-    //     return;
-    // }
+    if (streamerInput.value.toLowerCase() !== "wolfabelle") {
+        alert("Only works with Wolfabelle channel while in testing.");
+        return;
+    }
     ComfyJS.Init(streamerInput.value);
     submited = true;
     if (scoresData && scoresData.some(n => n.name === streamerInput.value)) {
@@ -216,9 +216,9 @@ form.addEventListener("submit", e => {
 
 
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-    // if (flags.broadcaster) {
-    //     return;
-    // }
+    if (flags.broadcaster) {
+        return;
+    }
     if (vip && !flags.vip) {
         return;
     }
@@ -229,9 +229,9 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
         return;
     }
     if (command === "join") {
-        // if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
-        //     return;
-        // }
+        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
+            return;
+        }
         // ADD CHAT AS SPECTATORS on !join command 
         const el = document.createElement("span");
         el.classList.add("spectator");
@@ -275,7 +275,7 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
         puppetEmote.style.background = `url("./images/emotes/${message}.png") no-repeat 20% 0%/contain`;
         setTimeout(() => {
             puppetEmote.style.background = "";
-        }, 2000);
+        }, 3000);
         return;
     }
     else if (legalMovesArray.indexOf(message) > -1) {
