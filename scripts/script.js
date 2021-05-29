@@ -65,7 +65,7 @@ const vipBtn = document.querySelector(".vip");
 const subBtn = document.querySelector(".sub");
 const timeBtns = document.querySelectorAll(".seconds-btns-container button");
 let seconds = document.querySelector("#time-remaining");
-let defaultSeconds = 30;
+let defaultSeconds = 60;
 let timeRemaining;
 const arrow = document.querySelector("#arrows");
 const promoDiv = document.querySelector(".promotion-div");
