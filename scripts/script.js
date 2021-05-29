@@ -216,9 +216,9 @@ form.addEventListener("submit", e => {
 
 
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-    if (flags.broadcaster) {
-        return;
-    }
+    // if (flags.broadcaster) {
+    //     return;
+    // }
     if (vip && !flags.vip) {
         return;
     }
@@ -229,9 +229,9 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
         return;
     }
     if (command === "join") {
-        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
-            return;
-        }
+        // if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
+        //     return;
+        // }
         // ADD CHAT AS SPECTATORS on !join command 
         const el = document.createElement("span");
         el.classList.add("spectator");
