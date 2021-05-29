@@ -1,6 +1,8 @@
 
 let backgroundsArray = ["wheat", "tileable_wood_texture_@2X", "robots_@2X", "moroccan-flower-dark", "folk-pattern-black", "dark_mosaic", "bo_play_pattern_@2X", "burried", "carbon_fibre_@2X", "christmas-colour", "circle-blues", "connectwork", "dark_wood", "dark-paths", "diagonal_striped_brick_@2X", "diagonal-squares", "doodles", "ep_naturalblack", "escheresque_ste_@2X", "fancy-cushion", "grey_wash_wall", "greyfloral", "herringbone", "more-leaves-on-green", "morocco-blue", "oriental-tiles", "pool_table", "pow-star", "prism", "purty_wood", "retina_wood", "sakura", "soft_kill_@2X", "tex2res4", "vaio_hard_edge_@2X", "wood_pattern", "wormz", "woven_@2X"];
 let emotesArray = ["4Head", "ArgieB8", "BabyRage", "BibleThump", "BrokeBack", "cmonBruh", "CoolStoryBob", "CrreamAwk", "DxCat", "EleGiggle", "FailFish", "FBPass", "FootYellow", "Jebaited", "Kappa", "KonCha", "LUL", "NotLikeThis", "PogChamp", "PunOko", "ResidentSleeper", "RlyTho", "SeemsGood", "StinkyGlitch", "SwiftRage", "TheIlluminati", "TriHard", "WutFace"];
+const url = "https://kekcheck-d237d-default-rtdb.europe-west1.firebasedatabase.app/";
+
 var doc = window.document;
 var docEl = doc.documentElement;
 var body = document.body;
@@ -17,6 +19,8 @@ const chatMoves = document.querySelector("#chat-last-moves");
 let streamerMovesArray = [];
 let chatMovesArray = [];
 let legalMovesArray = [];
+let scoresData = [];
+let position = -1;
 
 const startBtn = document.querySelector("#start-btn");
 let timeInt;
@@ -27,20 +31,24 @@ const about = document.querySelector(".about");
 const leaderboard = document.querySelector(".leaderboard");
 const showMenuBtn = document.querySelector(".show-menu-btn");
 const hideMenuBtn = document.querySelector(".hide-menu-btn");
-// let joinersArray = [{ username: "fggg", colorname: "blue" }, { username: "vvvv", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "meddfdsfdsffsdfdfsdfz", colorname: "blue" }, { username: "ppddfdsfdsffsdfdfsdfpp", colorname: "blue" }, { username: "mez", colorname: "green" }, { username: "ggg", colorname: "red" }, { username: "sfddfdsfdsffsdfdfsdfdf", colorname: "red" }, { username: "meddfdsfdsffsdfdfsdfz", colorname: "blue" }, { username: "oooddfdsfdsffsdfdfsdfoo", colorname: "blue" }, { username: "fdfddfdsfdsffsdfdfsdfff", colorname: "green" }, { username: "wwww", colorname: "green" }, { username: "mddfdsfdsffsdfdfsdfez", colorname: "red" }, { username: "hhhddfdsfdsffsdfdfsdfjj", colorname: "blue" }, { username: "mez", colorname: "purple" }, { username: "dffdff", colorname: "red" }, { username: "jjj", colorname: "green" }, { username: "mez", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "mez", colorname: "green" }, { username: "vbn", colorname: "blue" }, { username: "rett", colorname: "red" }, { username: "fsdddfdsfdsffsdfdfsdffdf", colorname: "blue" }, { username: "kkkkk", colorname: "blue" }, { username: "mddfdsfdsffsdfdfsdfez", colorname: "blue" }, { username: "kjkk", colorname: "purple" }, { username: "qqqq", colorname: "purple" }, { username: "ssddfdsfdsffsdfdfsdfdd", colorname: "red" }, { username: "dfffd", colorname: "purple" }, { username: "meddfdsfdsffsdfdfsdfz", colorname: "purple" }, { username: "ffggg", colorname: "blue" }, { username: "ffggg", colorname: "red" }, { username: "ffggg", colorname: "purple" }, { username: "ffggg", colorname: "blue" }, { username: "ffggg", colorname: "blue" }];
+const scoreBoard = document.querySelector("#tbody");
 let joinersArray = [];
 let puppetsArray = [];
-// let puppetsArray = [{ username: "fggg", colorname: "blue" }, { username: "vvvv", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "meddfdsfdsffsdfdfsdfz", colorname: "blue" }, { username: "ppddfdsfdsffsdfdfsdfpp", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "ggg", colorname: "blue" }, { username: "sfddfdsfdsffsdfdfsdfdf", colorname: "blue" }, { username: "meddfdsfdsffsdfdfsdfz", colorname: "blue" }, { username: "oooddfdsfdsffsdfdfsdfoo", colorname: "blue" }, { username: "fdfddfdsfdsffsdfdfsdfff", colorname: "blue" }, { username: "wwww", colorname: "blue" }, { username: "mddfdsfdsffsdfdfsdfez", colorname: "blue" }, { username: "hhhddfdsfdsffsdfdfsdfjj", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "dffdff", colorname: "blue" }, { username: "jjj", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "mez", colorname: "blue" }, { username: "vbn", colorname: "blue" }, { username: "rett", colorname: "blue" }, { username: "fsdddfdsfdsffsdfdfsdffdf", colorname: "blue" }, { username: "kkkkk", colorname: "blue" }, { username: "mddfdsfdsffsdfdfsdfez", colorname: "blue" }, { username: "kjkk", colorname: "blue" }, { username: "qqqq", colorname: "blue" }, { username: "ssddfdsfdsffsdfdfsdfdd", colorname: "blue" }, { username: "dfffd", colorname: "blue" }, { username: "meddfdsfdsffsdfdfsdfz", colorname: "blue" }, { username: "ffggg", colorname: "blue" }];
 let vip = false;
 let sub = false;
 let startGame = false;
+let checkmate = false;
 
 let pieceSound;
 let incheckSound;
 let victorySound;
 let drawSound;
+let stealPieceSound;
+let startSound;
 
 var statusElement = document.querySelector("#game-info");
+const streamerScore = document.querySelector("#streamer-score");
+const chatScore = document.querySelector("#chat-score");
 const chatSide = document.querySelector("#chat");
 const chatBubble = document.querySelector(".chat-bubble");
 const spectatorsContainer = document.querySelector("#spectators");
@@ -72,19 +80,133 @@ var options = {
 abChess = new AbChess("chessboard", options);
 abChess.setFEN();
 
+
+async function ajax(url, method, body) {
+    const res = await fetch(url + ".json", {
+        method: method,
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return await res.json();
+}
+
+// on page load
+async function getScores() {
+    scoresData = await ajax(url);
+    if (scoresData === null) {
+        scoresData = [];
+    }
+}
+
+
+
+// displays the results in the leaderboard
+function displayLeaderboard() {
+    let tableRow = "";
+    for (let i = 0; i < scoresData.length; i++) {
+        tableRow += `
+        <tr>
+            <td>${scoresData[i].name}</td>
+            <td>${scoresData[i].streamerMP}</td>
+            <td>${scoresData[i].chatMP}</td>
+            <td>Chat</td>
+        </tr>
+        `
+    }
+    scoreBoard.innerHTML = tableRow;
+}
+
+
+// create new scoreboard to database on form submit if its a new channel
+async function addScore() {
+    await ajax(url + scoresData.length, "PUT", {
+        "name": streamerInput.value,
+        "streamerMP": 0,
+        "streamerGP": 0,
+        "chatMP": 0,
+        "chatGP": 0,
+        "cover": false
+    });
+    await getScores();
+}
+
+
+async function extraPointFalse() {
+    await ajax(url + position, "PATCH", {
+        "cover": false
+    });
+    await getScores();
+}
+async function extraPointTrue() {
+    await ajax(url + position, "PATCH", {
+        "cover": true
+    });
+    await getScores();
+}
+async function updateChatGP() {
+    await ajax(url + position, "PATCH", {
+        "chatGP": scoresData[position].chatGP + 1
+    });
+    await getScores();
+}
+
+
+
+// updates game score data on win
+async function updateScoreData() {
+    await ajax(url + position, "PATCH", {
+        "streamerGP": Number(streamerScore.innerText),
+        "chatGP": Number(chatScore.innerText)
+    });
+    await getScores();
+}
+
+
+
+//updates match score data on match point
+async function updateStreamerMP() {
+    await ajax(url + position, "PATCH", {
+        "streamerMP": scoresData[position].streamerMP + 1,
+        "streamerGP": 0,
+        "chatGP": 0
+    });
+    await getScores();
+}
+async function updateChatMP() {
+    await ajax(url + position, "PATCH", {
+        "chatMP": scoresData[position].chatMP + 1,
+        "chatGP": 0,
+        "streamerGP": 0
+    });
+    await getScores();
+}
+
+async function updateScoreUI() {
+    streamerScore.innerText = await scoresData[position].streamerGP;
+    chatScore.innerText = await scoresData[position].chatGP;
+}
+
 form.addEventListener("submit", e => {
     e.preventDefault();
+    if (streamerInput.value === "") {
+        return;
+    }
+    getScores();
+    streamerScore.innerText = "";
+    chatScore.innerText = "";
     // if (streamerInput.value.toLowerCase() !== "wolfabelle") {
+    //     alert("Only works with Wolfabelle stream");
     //     return;
     // }
-    // case insensitive
-    ComfyJS.Init(`${streamerInput.value}`);
+    ComfyJS.Init(streamerInput.value);
     submited = true;
-
+    if (scoresData && scoresData.some(n => n.name === streamerInput.value)) {
+        position = scoresData.findIndex(s => s.name === streamerInput.value);
+    }
 })
 
-let timeToMove;
-let timer = null;
+
+
 
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
     // if (flags.broadcaster) {
@@ -96,13 +218,13 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     if (sub && !flags.subscriber) {
         return;
     }
-    if (puppetsArray.some(u => u.username === user)) {
-        return;
-    }
+    // if (puppetsArray.some(u => u.username === user)) {
+    //     return;
+    // }
     if (command === "join") {
-        if (joinersArray.length > 300 && joinersArray.some(u => u.username === user)) {
-            return;
-        }
+        // if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
+        //     return;
+        // }
         // ADD CHAT AS SPECTATORS on !join command 
         const el = document.createElement("span");
         el.classList.add("spectator");
@@ -123,9 +245,8 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     }
 }
 
-
-let em = abChess.getInfo("emote");
-console.log(em)
+let timeToMove;
+let timer = null;
 
 let promoArray = ["q", "r", "b", "k"];
 let randomPromo = Math.floor(Math.random() * promoArray.length);
@@ -152,16 +273,13 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
     }
     else if (legalMovesArray.indexOf(message) > -1) {
         votedMovesArray.push(message)
-
         oldMove = votedMove;
         votedMove = mostOccuredValue(votedMovesArray);
         timeToMove = seconds.innerText;
-
         if (votedMove !== undefined) {
             chatBubble.classList.add("show-bubble");
             chatBubble.innerText = votedMove;
         }
-
         if (oldMove !== votedMove) {
             clearTimeout(timer)
             timeToMove = 5;
@@ -178,28 +296,6 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
 
 
 
-// let one = 0; // simulate que spectators
-// spectatorsContainer.addEventListener("click", e => {
-//     joinersArray.forEach(spect => {
-//         joinersArray.push(spect);
-//         const el = document.createElement("span");
-//         el.classList.add("spectator");
-//         el.innerText = "mezerx";
-//         // el.style.color = `${extra.userColor}`;
-//         el.style.left = Math.floor(Math.random() * 450) + "px";
-//         el.style.top = Math.floor(Math.random() * 580) + "px";
-//         spectatorsContainer.appendChild(el);
-//         nrSpectators.innerText = joinersArray.length;
-//     })
-// })
-
-
-
-
-// console.log(joinersArray);
-// console.log(puppetsArray);
-
-
 // ADD PUPPETS TO CHESS BOARD
 // let addPuppets = setInterval(addSpectatorsToChessboard, 500);
 function addSpectatorsToChessboard() {
@@ -209,20 +305,23 @@ function addSpectatorsToChessboard() {
         spectatorsContainer.removeChild(spectatorsContainer.childNodes[randomNr]);
         joinersArray.splice(randomNr, 1);
     }
-    console.log(joinersArray);
-    console.log(puppetsArray);
     resetChess();
+    extraPointTrue();
 }
 
 function resetChess() {
     abChess.reset();
     abChess.setFEN("8/8/8/8/8/8/8/8 w - - 0 1");
     abChess.setFEN();
+
     statusElement.innerText = '';
     streamerMoves.innerHTML = '';
     chatMoves.innerHTML = '';
     legalMovesArray = [];
     movesCount = 0;
+    setTimeout(() => {
+        updateScoreUI();
+    }, 1000);
 }
 
 var movesCount = 1;
@@ -230,7 +329,7 @@ var turn;
 abChess.onMovePlayed(updateStatus);
 function updateStatus() {
     pieceSound.play();
-
+    // max nr to display last moves
     const maxDisplayedMoves = 3;
     var status = " to move.";
     turn = `${streamerInput.value}`;
@@ -281,12 +380,15 @@ function updateStatus() {
         }
         arrow.classList.add("switch-arrow");
     }
-    if (abChess.isCheck(movesCount)) {
+
+    if (abChess.isInsufficientMaterial(movesCount) || abChess.isStalemate(movesCount) || abChess.is50Moves(movesCount)) {
+        startGame = false;
+    } else if (abChess.isCheckmate(movesCount)) {
+        startGame = false;
+        checkmate = true;
+    } else if (abChess.isCheck(movesCount)) {
         status = " is in check.";
         incheckSound.play();
-    }
-    if (abChess.isCheckmate(movesCount) || abChess.isInsufficientMaterial(movesCount) || abChess.isStalemate(movesCount) || abChess.is50Moves(movesCount)) {
-        startGame = false;
     }
     statusElement.innerText = turn + status;
     votedMovesArray = [];
@@ -313,8 +415,20 @@ startBtn.addEventListener("click", e => {
         if (joinersArray.length < 32 && !startGame) {
             statusElement.innerText = "Wait for people to join (min 32) by typing !join";
             return;
+        } else if (position === -1) {
+            addScore(); //create new match if new streamer
+            streamerScore.innerText = 0;
+            chatScore.innerText = 0;
+            position = scoresData.length;
+        } else if (scoresData && scoresData[position].cover === true) {
+            if (scoresData[position].chatGP === 2) {
+                updateChatMP();
+            } else {
+                updateChatGP();
+            }
         }
         startGame = true;
+        checkmate = false;
         timeInt = setInterval(ticktock, 1000);
         addSpectatorsToChessboard();
         e.target.classList.add("reset-btn");
@@ -324,16 +438,17 @@ startBtn.addEventListener("click", e => {
         vipBtn.classList.add("disabled");
         streamerInput.setAttribute("readonly", true);
         nrSpectators.innerText = joinersArray.length;
-
         let legalMoves = abChess.getLegalMoves(movesCount);
         legalMoves.forEach(mov => {
             legalMovesArray.push(mov.start + mov.end);
         });
-
         pieceSound = new sound("./sounds/piece-moved.aac");
         incheckSound = new sound("./sounds/piece-in-check.aac");
         victorySound = new sound("./sounds/applause.mp3");
         drawSound = new sound("./sounds/fart.aac");
+        stealPieceSound = new sound("./sounds/piece-attack.mp3");
+        startSound = new sound("./sounds/start-game.mp3");
+        startSound.play();
     }
 })
 
@@ -358,16 +473,14 @@ modal.addEventListener("click", e => {
             startBtn.classList.remove("reset-btn");
             setTime();
             puppetsArray = [];
+            if (streamerScore.innerText == 3) {
+                streamerScore.innerText = 0;
+            } else if (chatScore.innerText == 3) {
+                chatScore.innerText = 0;
+            }
         }
     }
 })
-
-
-
-
-
-
-
 
 
 
@@ -381,7 +494,6 @@ modal.addEventListener("click", e => {
 seconds.innerText = defaultSeconds;
 timeBtns.forEach(btn => {
     btn.addEventListener("click", e => {
-
         if (e.target.innerText === "+") {
             if (defaultSeconds === 120) {
                 return;
@@ -398,25 +510,51 @@ timeBtns.forEach(btn => {
     })
 })
 
+
+
+
 // let timeInt = setInterval(ticktock, 1000);
+// check for wins and draws and update scores, UI and database
 function ticktock() {
     seconds.innerText = seconds.innerText - 1;
     if (!startGame || seconds.innerText == 0) {
         if (seconds.innerText == 0) {
             if (arrow.classList.contains("switch-arrow")) {
-                statusElement.innerText = `${streamerInput.value} won!!!`;
+                statusElement.innerText = `${streamerInput.value} won!!!🏆`;
+                streamerScore.innerText++;
             } else {
-                statusElement.innerText = `Chat won!!!`;
+                statusElement.innerText = `Chat won!!! ez clap`;
+                chatScore.innerText++;
             }
             victorySound.play();
+        } else if (checkmate) {
+            if (arrow.classList.contains("switch-arrow")) {
+                statusElement.innerText = `Chat is checkmate, ${streamerInput.value} won!!!🏆`;
+                streamerScore.innerText++;
+            } else {
+                statusElement.innerText = `${streamerInput.value} is checkmate, Chat won!!! ez clap`;
+                chatScore.innerText++;
+            }
+            victorySound.play();
+
         } else {
             statusElement.innerText = `It's a draw`;
             drawSound.play();
         }
+        if (chatScore.innerText == 3) {
+            updateChatMP();
+        } else if (streamerScore.innerText == 3) {
+            updateStreamerMP();
+        } else {
+            updateScoreData();
+        }
+        extraPointFalse();
         clearInterval(timeInt);
         startGame = false;
     }
 }
+
+
 
 function resetTime() {
     clearInterval(timeInt);
@@ -432,6 +570,13 @@ function setTime() {
         seconds.innerText = timeRemaining;
     }
 }
+
+
+
+
+
+
+
 
 
 
@@ -479,6 +624,8 @@ hideMenuBtn.addEventListener("click", () => {
     showMenuBtn.classList.add("show");
     hideMenuBtn.classList.remove("show");
     menu.classList.remove("display-menu");
+    about.classList.remove("show");
+    leaderboard.classList.remove("show");
 })
 
 
@@ -548,7 +695,6 @@ sizeBtns.forEach(btn => {
         } else {
             return;
         }
-
     })
 })
 
@@ -585,7 +731,6 @@ function mostOccuredValue(array) {
         }
         nr = 0;
     }
-
     return unique;
 }
 

@@ -1291,6 +1291,12 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
                     piece.disappear(square);
                 });
             } else {
+                if (movesCount !== 0) {
+                    stealPieceSound.play();
+                } else {
+
+                }
+
                 raf(function () {
                     square.removePiece(piece);
                 });
@@ -1341,9 +1347,6 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             abChess.setInfo("Puppet", piece.element.innerText)
             abChess.setInfo("movedFrom", oldSquare.name);
             abChess.setInfo("movedTo", newSquare.name);
-            // console.log(piece.element.innerText)
-            // console.log(piece.name)
-            // console.log(oldSquare.name, newSquare.name)
         };
 
         /**

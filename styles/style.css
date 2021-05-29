@@ -87,6 +87,84 @@ body::before {
 
 
 
+
+
+/* LOADING SCREEN */
+.loading-screen {
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--colorBrown1);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: center;
+    pointer-events: none;
+}
+
+.loading-screen p {
+    color: white;
+    opacity: 0;
+    font-size: 2rem;
+    text-align: center;
+    display: inline-block;
+    animation: textB 3.5s ease-in;
+    -webkit-box-reflect: below 90px linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.104));
+}
+
+.loading-screen .loading-bar {
+    width: 300px;
+    height: 20px;
+    opacity: 0;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.556);
+    animation: textB 3.5s ease-in;
+    -webkit-box-reflect: below 1px linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.261));
+}
+
+.loading-bar::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -50px;
+    background-color: var(--colorBrown2);
+    animation: loading 1s cubic-bezier(0.35, 0.95, 0.795, 0.035) forwards;
+}
+
+@keyframes loading {
+    0% {
+        left: -350px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@keyframes textB {
+
+    0%,
+    99% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+
 /* FullScreen Button */
 #full-screen {
     position: absolute;
@@ -225,7 +303,7 @@ body::before {
     position: absolute;
     top: 15px;
     left: 50%;
-    width: 50%;
+    width: 80%;
     height: 100px;
     transform: translateX(-50%);
     background-color: rgb(234, 234, 234);
@@ -233,7 +311,6 @@ body::before {
     border: 10px ridge rgb(205, 160, 112);
     box-shadow: inset 5px 5px 10px rgb(138, 138, 138);
     display: flex;
-
 }
 
 .info-container #game-info {
@@ -243,6 +320,25 @@ body::before {
     font-size: 1.5rem;
     text-align: center;
     color: var(--colorBrown1);
+}
+
+#streamer-score,
+#chat-score {
+    font-size: 5rem;
+    font-weight: 700;
+    position: absolute;
+    color: rgba(130, 130, 130, 0.256);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+#streamer-score {
+    left: 20px;
+}
+
+#chat-score {
+    right: 20px;
 }
 
 
@@ -262,7 +358,7 @@ body::before {
 /* box-shadow: 0.6em 0.6em 1.2em #d2dce9, -0.5em -0.5em 1em #ffffff; */
 /* #f2f3f7 */
 
-#chessboard .squares:not(.emote) {
+#chessboard .squares {
     box-shadow: 40px 0px 50px black;
     transform: translateX(-20px);
     perspective: 1000px;
@@ -418,13 +514,13 @@ body::before {
 /* TIME REMAINING AND PLAYER TO MOVE */
 #time-container {
     position: absolute;
-    bottom: -40px;
+    bottom: -50px;
     left: 50%;
     height: 100px;
     width: 100px;
     background-color: #f2f3f7;
     border-radius: 50%;
-    transform: translate(-50%) scale(0.7);
+    transform: translateX(-50%) scale(0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -694,7 +790,7 @@ menu {
     flex-direction: column;
     padding: 0.5rem;
     border-radius: 0px 20px 20px 0px;
-    transition: .4s ease-in;
+    transition: .4s ease-out;
 }
 
 .display-menu {
@@ -736,6 +832,7 @@ menu #leaderboard:hover {
     background: url("../images/about-frame.svg") no-repeat center center/100%;
     font-family: var(--fontSans3);
     visibility: hidden;
+
 }
 
 .about>div,
@@ -749,23 +846,73 @@ menu #leaderboard:hover {
     color: var(--colorBlue1);
 }
 
+
+.about .link {
+    color: var(--colorBlue2);
+}
+
+.about .link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--colorOrange2);
+}
+
+.leaderboard>div {}
+
 .leaderboard {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    height: 500px;
     padding: 2rem;
+
+    height: 500px;
     overflow: hidden;
     pointer-events: all;
-    background: url("../images/leaderboard-frame.svg") no-repeat center center/100%;
+    background: url("../images/undraw_stepping_up_g6oo.svg") no-repeat bottom 28px left 50px/45%, url("../images/leaderboard-frame.svg") no-repeat center center/100%;
     font-family: var(--fontSans3);
     visibility: hidden;
+    font-family: var(--fontCursive2);
+    letter-spacing: 1px;
 }
 
 .leaderboard h2 {
     color: var(--colorOrange1);
+    text-align: center;
+    font-size: 2rem;
+}
+
+.leaderboard table {
+    pointer-events: all;
+    width: 425px;
+    margin: 0;
+    font-size: 1.2rem;
+    /* border: 1px solid black; */
+    border-spacing: 0;
+    /* overflow: scroll; */
+}
+
+
+table,
+td {
+    /* border: 1px solid black; */
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 213, 177, 0.612);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(243, 255, 197, 0.509);
 }
 
 .show-menu-btn,
@@ -944,7 +1091,15 @@ menu #leaderboard:hover {
     }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 969px) {
+
+    body {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 499px) {
 
     body {
         display: none;
