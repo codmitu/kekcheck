@@ -201,10 +201,10 @@ form.addEventListener("submit", e => {
     getScores();
     streamerScore.innerText = "";
     chatScore.innerText = "";
-    if (streamerInput.value.toLowerCase() !== "wolfabelle") {
-        alert("Only works with Wolfabelle channel while in testing.");
-        return;
-    }
+    // if (streamerInput.value.toLowerCase() !== "wolfabelle") {
+    //     alert("Only works with Wolfabelle channel while in testing.");
+    //     return;
+    // }
     ComfyJS.Init(streamerInput.value);
     submited = true;
     if (scoresData && scoresData.some(n => n.name === streamerInput.value)) {
