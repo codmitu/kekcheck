@@ -1493,7 +1493,7 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             }
             // added white in condition so black cannot be clicked 
             if (piece !== null && !sameSquare && !board.hasDraggedStart &&
-                !isLegal && !piece.isAnimated) {
+                !isLegal && !piece.isAnimated && square.piece.color === "w") {
                 square.select();
             }
             board.hasDraggedStart = false;
@@ -1509,7 +1509,7 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
                 return;
             }
             // added black in condition so black cannot be moved
-            if (piece === null || event.button !== 0 || piece.isAnimated) {
+            if (piece === null || event.button !== 0 || piece.isAnimated || piece.color === "b") {
                 return;
 
             }

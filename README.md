@@ -1,3 +1,7 @@
 # kekCheck
+chess game for twitch community
+https://www.kekcheck.com
 
- chess game for twitch community
+ Documentation:
+ https://github.com/instafluff/ComfyJS
+ https://nimzozo.github.io/Ab-Chess/

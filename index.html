@@ -19,6 +19,8 @@
         <p class='percent'></p>
         <div class="loading-bar"></div>
     </div>
+
+
     <div id="shadow-frame">
         <menu>
             <button id="about"><i class="far fa-question-circle"></i></button>
@@ -175,9 +177,6 @@
     <script>
         setTimeout(() => {
             document.querySelector('.loading-screen').remove();
-            document.querySelector('.pin-spacer').remove();
-            document.querySelector('.percent').remove();
-            document.querySelector('.loading-bar').remove();
         }, 1300);
         let loading = document.querySelector('.percent');
         let counter = 0;

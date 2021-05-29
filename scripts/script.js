@@ -6,6 +6,13 @@ const url = "https://kekcheck-d237d-default-rtdb.europe-west1.firebasedatabase.a
 var doc = window.document;
 var docEl = doc.documentElement;
 var body = document.body;
+
+doc.addEventListener("contextmenu", e => {
+    e.preventDefault();
+})
+
+
+
 const chessboard = document.querySelector("#chessboard");
 const squares = document.querySelector(".squares");
 
@@ -194,10 +201,10 @@ form.addEventListener("submit", e => {
     getScores();
     streamerScore.innerText = "";
     chatScore.innerText = "";
-    // if (streamerInput.value.toLowerCase() !== "wolfabelle") {
-    //     alert("Only works with Wolfabelle stream");
-    //     return;
-    // }
+    if (streamerInput.value.toLowerCase() !== "wolfabelle") {
+        alert("Only works with Wolfabelle channel while in testing.");
+        return;
+    }
     ComfyJS.Init(streamerInput.value);
     submited = true;
     if (scoresData && scoresData.some(n => n.name === streamerInput.value)) {
@@ -209,22 +216,22 @@ form.addEventListener("submit", e => {
 
 
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-    // if (flags.broadcaster) {
-    //     return;
-    // }
+    if (flags.broadcaster) {
+        return;
+    }
     if (vip && !flags.vip) {
         return;
     }
     if (sub && !flags.subscriber) {
         return;
     }
-    // if (puppetsArray.some(u => u.username === user)) {
-    //     return;
-    // }
+    if (puppetsArray.some(u => u.username === user)) {
+        return;
+    }
     if (command === "join") {
-        // if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
-        //     return;
-        // }
+        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
+            return;
+        }
         // ADD CHAT AS SPECTATORS on !join command 
         const el = document.createElement("span");
         el.classList.add("spectator");
@@ -254,9 +261,9 @@ let randomPromo = Math.floor(Math.random() * promoArray.length);
 let puppetEmote;
 // GET VOTED MOVES FROM CHAT AND PUSH IT TO ARRAY`
 ComfyJS.onChat = (user, message, flags, self, extra) => {
-    // if (flags.broadcaster) {
-    //     return;
-    // }
+    if (flags.broadcaster) {
+        return;
+    }
     if (vip && !flags.vip) {
         return;
     }
