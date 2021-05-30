@@ -1264,7 +1264,7 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
                 nameText.innerText = puppetsArray[counter].username;
                 nameText.style.color = puppetsArray[counter].colorname;
                 const emote = document.createElement("div");
-                emote.classList.add("emote");
+                emote.classList.add("emote2");
                 emote.classList.add(`${nameText.innerText}`);
                 piece.element.appendChild(emote);
 
@@ -1493,7 +1493,7 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             }
             // added white in condition so black cannot be clicked 
             if (piece !== null && !sameSquare && !board.hasDraggedStart &&
-                !isLegal && !piece.isAnimated && square.piece.color === "w") {
+                !isLegal && !piece.isAnimated && square.piece.color === "w") { // && square.piece.color === "w"
                 square.select();
             }
             board.hasDraggedStart = false;
@@ -1509,7 +1509,7 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
                 return;
             }
             // added black in condition so black cannot be moved
-            if (piece === null || event.button !== 0 || piece.isAnimated || piece.color === "b") {
+            if (piece === null || event.button !== 0 || piece.isAnimated || piece.color === "b") { // || piece.color === "b"
                 return;
 
             }
@@ -1961,7 +1961,6 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             var square = board.getSquare(end);
             if (piece.color === chess.white) {
                 choice = choice.toUpperCase();
-                console.log(choice)
             }
             else {
                 return;
@@ -1969,7 +1968,6 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             board.pendingMove.promotion = choice;
             board.play(board.pendingMove, true);
             raf(function () {
-                // board.promotionDiv.style.display = "none";
                 board.promotionDiv.classList.remove("unhidden");
                 piece.promote(square, choice);
             });

@@ -1,6 +1,6 @@
 
 let backgroundsArray = ["wheat", "tileable_wood_texture_@2X", "robots_@2X", "moroccan-flower-dark", "folk-pattern-black", "dark_mosaic", "bo_play_pattern_@2X", "burried", "carbon_fibre_@2X", "christmas-colour", "circle-blues", "connectwork", "dark_wood", "dark-paths", "diagonal_striped_brick_@2X", "diagonal-squares", "doodles", "ep_naturalblack", "escheresque_ste_@2X", "fancy-cushion", "grey_wash_wall", "greyfloral", "herringbone", "more-leaves-on-green", "morocco-blue", "oriental-tiles", "pool_table", "pow-star", "prism", "purty_wood", "retina_wood", "sakura", "soft_kill_@2X", "tex2res4", "vaio_hard_edge_@2X", "wood_pattern", "wormz", "woven_@2X"];
-let emotesArray = ["4Head", "ArgieB8", "BabyRage", "BibleThump", "BrokeBack", "cmonBruh", "CoolStoryBob", "CrreamAwk", "DxCat", "EleGiggle", "FailFish", "FBPass", "FootYellow", "Jebaited", "Kappa", "KonCha", "LUL", "NotLikeThis", "PogChamp", "PunOko", "ResidentSleeper", "RlyTho", "SeemsGood", "StinkyGlitch", "SwiftRage", "TheIlluminati", "TriHard", "WutFace"];
+let emotesArray = ["4Head", "ArgieB8", "BabyRage", "BibleThump", "BrokeBack", "cmonBruh", "CoolStoryBob", "CrreamAwk", "DxCat", "EleGiggle", "FailFish", "FBPass", "FootYellow", "Jebaited", "Kappa", "KonCha", "LUL", "NotLikeThis", "PogChamp", "PunOko", "ResidentSleeper", "RlyTho", "SeemsGood", "StinkyGlitch", "SwiftRage", "TheIlluminati", "TriHard", "WutFace", "CantLook", "FUUU", "hi", "lmao", "LOL", "Pika", "WhyYouRage", "YEP"];
 const url = "https://kekcheck-d237d-default-rtdb.europe-west1.firebasedatabase.app/";
 
 var doc = window.document;
@@ -12,7 +12,7 @@ doc.addEventListener("contextmenu", e => {
 })
 function reportWindowSize() {
     if (window.innerWidth < 969) {
-        alert("need a browser wider than 969px to play")
+        alert("need a browser wider than 1069px to play")
     }
 }
 reportWindowSize();
@@ -45,6 +45,7 @@ const showMenuBtn = document.querySelector(".show-menu-btn");
 const hideMenuBtn = document.querySelector(".hide-menu-btn");
 const scoreBoard = document.querySelector("#tbody");
 let joinersArray = [];
+// let joinersArray = [{ username: "Alexandra", colorname: "pink" }, { username: "Jackson", colorname: "forestgreen" }, { username: "Mayer", colorname: "violet" }, { username: "dougVega", colorname: "turquoise" }, { username: "olson", colorname: "aqua" }, { username: "Darell", colorname: "coral" }, { username: "willonaaa", colorname: "chocolate" }, { username: "Simon", colorname: "blueviolet" }, { username: "Kayla", colorname: "brown" }, { username: "fernande", colorname: "chartreuse" }, { username: "LioneL", colorname: "cadetblue" }, { username: "percival", colorname: "crimson" }, { username: "Schummann", colorname: "cyan" }, { username: "mellissa", colorname: "darkblue" }, { username: "RoyPoe", colorname: "darkgreen" }, { username: "violaV", colorname: "darkorange" }, { username: "harley", colorname: "darkmagenta" }, { username: "Jessee", colorname: "green" }, { username: "sandovalTravis", colorname: "deeppink" }, { username: "russLowe", colorname: "firebrick" }, { username: "GavinGG", colorname: "royalblue" }, { username: "JulieJackson", colorname: "red" }, { username: "bernard", colorname: "blue" }, { username: "Ramona", colorname: "yellow" }, { username: "MarshallOs", colorname: "limegreen" }, { username: "HammondAubrey", colorname: "orange" }, { username: "IrisDuncan", colorname: "crimson" }, { username: "tessS", colorname: "darkblue" }, { username: "nicholas", colorname: "salmon" }, { username: "Moorrey", colorname: "purple" }, { username: "constantH", colorname: "magenta" }, { username: "bonnie", colorname: "violet" }, { username: "leopold", colorname: "maroon" }, { username: "Stephenson", colorname: "aqua" }, { username: "Hopkins", colorname: "coral" }, { username: "Shelton", colorname: "chocolate" }, { username: "Rowena", colorname: "blueviolet" }, { username: "Lilliana", colorname: "brown" }, { username: "KarenBates", colorname: "chartreuse" }, { username: "rebecca", colorname: "cadetblue" }, { username: "EbenezerMal", colorname: "crimson" }, { username: "DickinsonK", colorname: "cyan" }, { username: "RoderickPearson", colorname: "darkblue" }];
 let puppetsArray = [];
 let vip = false;
 let sub = false;
@@ -238,11 +239,16 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
         el.classList.add("spectator");
         el.innerText = `${user}`;
         el.style.color = `${extra.userColor}`;
+        const emote = document.createElement("span");
+        emote.classList.add(`${user}`);
+        emote.classList.add("emote");
+        el.appendChild(emote);
 
         // SPREAD THEM RANDOMLY
         el.style.left = Math.floor(Math.random() * 480) + "px";
         el.style.top = Math.floor(Math.random() * 580) + "px";
         spectatorsContainer.appendChild(el);
+
 
         // PLACE THEM IN AN ARRAY, MAX 300 (32 WILL JOIN THE CHESSBOARD ON START)
         joinersArray.push({
@@ -260,6 +266,7 @@ let promoArray = ["q", "r", "b", "k"];
 let randomPromo = Math.floor(Math.random() * promoArray.length);
 
 let puppetEmote;
+let joinerEmote;
 // GET VOTED MOVES FROM CHAT AND PUSH IT TO ARRAY`
 ComfyJS.onChat = (user, message, flags, self, extra) => {
     if (flags.broadcaster) {
@@ -273,9 +280,16 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
     }
     if (puppetsArray.some(u => u.username === user) && emotesArray.includes(message)) {
         puppetEmote = document.querySelector(`.${user}`);
-        puppetEmote.style.background = `url("./images/emotes/${message}.png") no-repeat 20% 0%/contain`;
+        puppetEmote.style.background = `url("./images/emotes/${message}.png") no-repeat center center/contain`;
         setTimeout(() => {
             puppetEmote.style.background = "";
+        }, 3000);
+        return;
+    } else if (joinersArray.some(u => u.username === user) && emotesArray.includes(message)) {
+        joinerEmote = document.querySelector(`.${user}`);
+        joinerEmote.style.background = `url("./images/emotes/${message}.png") no-repeat center center/contain`;
+        setTimeout(() => {
+            joinerEmote.style.background = "";
         }, 3000);
         return;
     }
@@ -305,7 +319,6 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
 
 
 // ADD PUPPETS TO CHESS BOARD
-// let addPuppets = setInterval(addSpectatorsToChessboard, 500);
 function addSpectatorsToChessboard() {
     for (let i = 0; i < 32; i++) {
         const randomNr = Math.floor(Math.random() * joinersArray.length);

@@ -290,11 +290,12 @@ body::before {
 
 
 /* CHESS CONTAINER */
-#chess-container {
+#chess-container:not(.emote) {
     margin: auto;
     perspective: 1000px;
     position: relative;
     transition: transform .5s ease;
+
 }
 
 
@@ -346,7 +347,7 @@ body::before {
 
 
 /* CHESS BOARD */
-#chessboard {
+#chessboard:not(.emote) {
     transform: rotateZ(90deg) rotateY(-30deg);
     background-image: repeating-linear-gradient(90deg, rgba(224, 82, 67, 0.5) 0px, rgba(224, 82, 67, 0.5) 40px, transparent 40px, transparent 80px), repeating-linear-gradient(0deg, rgba(224, 82, 67, 0.5) 0px, rgba(224, 82, 67, 0.5) 40px, transparent 40px, transparent 80px), linear-gradient(90deg, hsl(250, 82%, 1%), hsl(250, 82%, 1%));
     position: relative;
@@ -358,7 +359,7 @@ body::before {
 /* box-shadow: 0.6em 0.6em 1.2em #d2dce9, -0.5em -0.5em 1em #ffffff; */
 /* #f2f3f7 */
 
-#chessboard .squares {
+#chessboard .squares:not(.emote) {
     box-shadow: 40px 0px 50px black;
     transform: translateX(-20px);
     perspective: 1000px;
@@ -403,23 +404,23 @@ body::before {
     cursor: pointer;
     position: absolute;
     white-space: nowrap;
-    color: rgb(0, 0, 0);
     font-weight: 600;
     font-family: var(--fontSans2);
     text-align: center;
-    font-size: 1rem;
+    font-size: 22px;
     text-overflow: clip;
     overflow: visible;
+    letter-spacing: -1px;
 }
 
 
 .nameText {
-    font-size: 0.9rem;
+    font-size: 19px;
+    letter-spacing: -1px;
     position: absolute;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    color: rgb(0, 0, 0);
     font-weight: 600;
     font-family: var(--fontSans2);
     text-align: center;
@@ -427,15 +428,27 @@ body::before {
 }
 
 .emote {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    position: absolute;
+    left: 30%;
+    top: -50%;
+    z-index: 3;
+    pointer-events: none;
+
+}
+
+.emote2 {
     width: 50px;
     height: 50px;
-    transform: rotateY(10deg);
     display: inline-block;
     position: absolute;
     left: 20%;
     top: -20%;
-    z-index: 10;
+    z-index: 3;
     pointer-events: none;
+
 }
 
 
@@ -642,7 +655,7 @@ body::before {
 }
 
 .chat-bubble {
-    background: url("../images/chat-bubble.svg") no-repeat center center/contain;
+    background: url("../images/vote-bubble.svg") no-repeat center center/contain;
     position: absolute;
     top: 0;
     left: -100px;
@@ -684,7 +697,7 @@ body::before {
 .spectator {
     position: absolute;
     font-weight: 700;
-    font-size: 0.9rem;
+    /* font-size: 0.9rem; */
 }
 
 #max-spectators {
@@ -1081,7 +1094,7 @@ tr:nth-child(odd) {
 }
 
 
-@media only screen and (min-width: 969px) {
+@media only screen and (min-width: 1069px) {
 
     a,
     button,
@@ -1091,7 +1104,7 @@ tr:nth-child(odd) {
     }
 }
 
-@media only screen and (max-width: 969px) {
+@media only screen and (max-width: 1069px) {
 
     body {
         display: none;
