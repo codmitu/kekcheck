@@ -162,14 +162,54 @@ body::before {
 
 
 
+audio {
+    position: absolute;
+    top: 0;
+    left: -50px;
+    margin: 0;
+    pointer-events: all;
+    width: 250px;
+    height: 20px;
+    transform: scale(0.5);
+}
+
+#fx {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("../images/rain.png");
+    filter: invert(50%);
+    animation: rain 0.3s linear infinite;
+    display: none;
+    pointer-events: none;
+}
+
+@keyframes rain {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 10% 100%;
+    }
+}
+
+
+
+
+
 
 
 
 /* FullScreen Button */
 #full-screen {
     position: absolute;
-    color: rgba(138, 138, 138, 0.468);
-    text-shadow: 0px 0px 10px black;
+    color: rgb(255, 247, 0);
+    text-shadow: 0px 0px 5px rgb(255, 0, 0);
     font-size: 2rem;
     top: 1rem;
     right: 1rem;
@@ -289,13 +329,20 @@ body::before {
 
 
 
+
+
+
+
+
+
+
 /* CHESS CONTAINER */
 #chess-container:not(.emote) {
     margin: auto;
     perspective: 1000px;
     position: relative;
     transition: transform .5s ease;
-
+    z-index: 2;
 }
 
 
@@ -346,6 +393,7 @@ body::before {
 
 
 
+
 /* CHESS BOARD */
 #chessboard:not(.emote) {
     transform: rotateZ(90deg) rotateY(-30deg);
@@ -373,8 +421,9 @@ body::before {
     right: -37px;
     background-image: linear-gradient(to left, rgb(62, 53, 37), wheat);
     width: 50px;
-    height: 98.3%;
-    transform: rotateY(45deg) translateY(-6px);
+    height: 98.4%;
+    transform: rotateY(45deg) translateY(-5.5px);
+    border-radius: 3px;
 
 }
 
@@ -804,6 +853,8 @@ menu {
     padding: 0.5rem;
     border-radius: 0px 20px 20px 0px;
     transition: .4s ease-out;
+    pointer-events: all;
+    z-index: 3;
 }
 
 .display-menu {
@@ -814,7 +865,6 @@ menu #about {
     margin: 10px 0;
     color: var(--colorBlue5);
     transition: all 0.2s ease;
-
 }
 
 menu #leaderboard {
@@ -845,7 +895,7 @@ menu #leaderboard:hover {
     background: url("../images/about-frame.svg") no-repeat center center/100%;
     font-family: var(--fontSans3);
     visibility: hidden;
-
+    z-index: 1000;
 }
 
 .about>div,
@@ -871,7 +921,6 @@ menu #leaderboard:hover {
     text-decoration-color: var(--colorOrange2);
 }
 
-.leaderboard>div {}
 
 .leaderboard {
     position: absolute;
@@ -1092,6 +1141,7 @@ tr:nth-child(odd) {
 .unhidden {
     display: block !important;
 }
+
 
 
 @media only screen and (min-width: 1069px) {

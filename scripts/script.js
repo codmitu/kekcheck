@@ -636,6 +636,7 @@ menuBtns.forEach(btn => {
         }
     })
 })
+
 showMenuBtn.addEventListener("click", () => {
     showMenuBtn.classList.remove("show");
     hideMenuBtn.classList.add("show");
@@ -649,7 +650,9 @@ hideMenuBtn.addEventListener("click", () => {
     leaderboard.classList.remove("show");
 })
 
-
+setTimeout(() => {
+    menu.classList.remove("display-menu");
+}, 2000);
 
 
 
@@ -771,3 +774,23 @@ function sound(src) {
         this.sound.pause();
     }
 }
+
+
+
+const audio = document.querySelector("#bg-sound");
+function bgSound() {
+    audio.loop = true;
+    audio.autoplay = false;
+    audio.preload = "auto";
+    audio.volume = 0.3;
+    audio.load();
+}
+
+bgSound();
+
+audio.addEventListener("play", () => {
+    document.querySelector("#fx").classList.add("unhidden");
+})
+audio.addEventListener("pause", () => {
+    document.querySelector("#fx").classList.remove("unhidden");
+})
