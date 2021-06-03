@@ -9,6 +9,7 @@
     display: inline-block;
     border: 1px solid saddlebrown;
     vertical-align: top;
+
 }
 
 .square_black,
@@ -19,6 +20,7 @@
     height: 12.5%;
     margin: 0;
     vertical-align: top;
+
 }
 
 .square_white {

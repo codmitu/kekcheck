@@ -1260,6 +1260,11 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             piece.ghost.style.width = piece.width + "px";
             const nameText = document.createElement("span");
             nameText.classList.add("nameText");
+            if (counter < 16) {
+                nameText.classList.add("white");
+            } else {
+                nameText.classList.add("black");
+            }
             if (startGame && puppetsArray.length > counter) {
                 nameText.innerText = puppetsArray[counter].username;
                 nameText.style.color = puppetsArray[counter].colorname;
@@ -1292,9 +1297,9 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
                 });
             } else {
                 if (movesCount !== 0) {
+                    let index = puppetsArray.indexOf(piece.element.outerText);
+                    puppetsArray.splice(index, 1);
                     stealPieceSound.play();
-                } else {
-
                 }
 
                 raf(function () {

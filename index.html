@@ -9,7 +9,7 @@
     <meta name="description" content="Chess game for twitch streamers to play against their chat PogChamp">
     <meta name="author" content="CodMitu">
     <meta name="keywords"
-        content="game, twitch, chess, chat, stream, online, play, viewers, browser, chrome, desktop, fullscreen">
+        content="game, twitch, chess, chat, stream, online, play, viewers, browser, chrome, desktop, checkmate, mmo, variety, minigame, fun, chill">
     <meta name="twitter:card" content="app">
     <meta name="twitter:creator" content="@codmitu">
     <meta name="twitter:description" content="Chess game for twitch streamers to play against their chat PogChamp">
@@ -34,7 +34,10 @@
         <div class="loading-bar"></div>
     </div>
 
+    <!-- <button id="add" onclick="add();">Add</button>
+    <button id="remove" onclick="remove();">Remove</button> -->
 
+    <div id="confusion"></div>
 
     <div id="fx"></div>
 
@@ -42,6 +45,24 @@
         <source src="./sounds/rain.mp3" type="audio/mpeg" autoplay="true">
     </audio>
 
+    <div id="curses-container">
+        <div class="curse">
+            <img src="images/unmarked.svg" style="cursor: pointer" alt="" id="permit-curses" class="not=permited">
+            <small>Curses</small>
+        </div>
+        <div class="curse" id="blind-curse">
+            <img src="images/other/blindness.png" title="Blindness" alt="">
+            <p>!b</p>
+        </div>
+        <div class="curse" id="confuse-curse">
+            <img src="images/other/confusion.png" title="Confusion" alt="">
+            <p>!c</p>
+        </div>
+        <div class="curse" id="halucination-curse">
+            <img src="images/other/halucination.png" title="Halucination" alt="">
+            <p>!h</p>
+        </div>
+    </div>
 
     <button onclick="openFullscreen();" id="full-screen"><i class="fas fa-expand-arrows-alt"></i></button>
 
@@ -111,7 +132,7 @@
                     <li>Type a valid Twitch channel inside the <b>text box</b> in the up-left corner and press
                         <b>Enter</b>. <i>The
                             channel cannot be changed in mid game</i>.</li>
-                    <li>Now chat can type <b>!join</b> to join the <b>Spectators area </b>(right side of the
+                    <li>Now chat can type <b>!join</b> to join the <b>Queue area </b>(right side of the
                         screen).
                         Max
                         number is 300, but everyone can play.</li>
@@ -152,12 +173,21 @@
                             1GP
                             if streamer presses RESET or refreshes the browser , restarts the computer or goes
                             shopping in mid game</i></li>
+                    <li>
+                        <b>Minigame</b>: <u>Curses</u> can be used against the opponent by players on the chessboard.
+                    </li>
                 </ol>
-                <div><b>Documentation:</b>
+                <div><b>Documentation/Sources:</b>
                     <br>
                     <a href="https://github.com/instafluff/ComfyJS" class="link" target="_blank">ComfyJS</a>
                     <br>
                     <a href="https://nimzozo.github.io/Ab-Chess/" class="link" target="_blank">Ab-Chess</a>
+                    <br>
+                    <a href="https://www.toptal.com/designers/subtlepatterns/" class="link"
+                        target="_blank">Backgrounds</a>
+                    <br>
+                    <a href="https://bigsoundbank.com/search?q=&CatID=&type=&mode=&frequence=&resolution=&duree=-1&tri=t"
+                        class="link" target="_blank">Sounds</a>
                 </div>
             </div>
         </article>

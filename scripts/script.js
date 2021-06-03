@@ -1,6 +1,7 @@
 
 let backgroundsArray = ["wheat", "tileable_wood_texture_@2X", "robots_@2X", "moroccan-flower-dark", "folk-pattern-black", "dark_mosaic", "bo_play_pattern_@2X", "burried", "carbon_fibre_@2X", "christmas-colour", "circle-blues", "connectwork", "dark_wood", "dark-paths", "diagonal_striped_brick_@2X", "diagonal-squares", "doodles", "ep_naturalblack", "escheresque_ste_@2X", "fancy-cushion", "grey_wash_wall", "greyfloral", "herringbone", "more-leaves-on-green", "morocco-blue", "oriental-tiles", "pool_table", "pow-star", "prism", "purty_wood", "retina_wood", "sakura", "soft_kill_@2X", "tex2res4", "vaio_hard_edge_@2X", "wood_pattern", "wormz", "woven_@2X"];
 let emotesArray = ["4Head", "ArgieB8", "BabyRage", "BibleThump", "BrokeBack", "cmonBruh", "CoolStoryBob", "CrreamAwk", "DxCat", "EleGiggle", "FailFish", "FBPass", "FootYellow", "Jebaited", "Kappa", "KonCha", "LUL", "NotLikeThis", "PogChamp", "PunOko", "ResidentSleeper", "RlyTho", "SeemsGood", "StinkyGlitch", "SwiftRage", "TheIlluminati", "TriHard", "WutFace", "CantLook", "FUUU", "hi", "lmao", "LOL", "Pika", "WhyYouRage", "YEP"];
+let piecesArray = ["bb", "bk", "bn", "bp", "bq", "br", "wb", "wk", "wn", "wp", "wq", "wr"];
 const url = "https://kekcheck-d237d-default-rtdb.europe-west1.firebasedatabase.app/";
 
 var doc = window.document;
@@ -58,6 +59,15 @@ let victorySound;
 let drawSound;
 let stealPieceSound;
 let startSound;
+let curseVote;
+let halucinationSound;
+let blindnessSound;
+let confusionSound;
+let curseOver;
+let restartGame;
+let click = new sound('./sounds/connected.wav');
+
+let activateCurse = false;
 
 var statusElement = document.querySelector("#game-info");
 const streamerScore = document.querySelector("#streamer-score");
@@ -76,6 +86,16 @@ let timeRemaining;
 const arrow = document.querySelector("#arrows");
 const promoDiv = document.querySelector(".promotion-div");
 
+const permitCurses = document.querySelector(".curse");
+const confusionEl = document.querySelector("#confusion");
+let curses = false;
+let blindness = false;
+let confusion = false;
+let halucination = false;
+let black = false;
+let white = false;
+let curseArray = ["b", "c", "h"];
+let ti;
 
 let votedMovesArray = [];
 let votedMove = "";
@@ -212,6 +232,7 @@ form.addEventListener("submit", e => {
     if (scoresData && scoresData.some(n => n.name === streamerInput.value)) {
         position = scoresData.findIndex(s => s.name === streamerInput.value);
     }
+    click.play();
 })
 
 
@@ -227,11 +248,8 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     if (sub && !flags.subscriber) {
         return;
     }
-    if (puppetsArray.some(u => u.username === user)) {
-        return;
-    }
     if (command === "join") {
-        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user)) {
+        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user) || puppetsArray.some(u => u.username === user)) {
             return;
         }
         // ADD CHAT AS SPECTATORS on !join command 
@@ -256,8 +274,53 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
             colorname: `${extra.userColor}`
         });
         nrSpectators.innerText = joinersArray.length;
+    } else if (puppetsArray.some(u => u.username === user) && curses && activateCurse && curseArray.includes(command)) {
+        let index = curseArray.indexOf(command);
+        curseArray.splice(index, 1);
+        clearInterval(ti);
+        if (document.querySelector(`.${user}`).nextSibling.classList.contains("black")) {
+            black = true;
+            if (command === "b") {
+                blindness = true;
+            } else if (command === "c") {
+                confusion = true;
+            } else if (command === "h") {
+                halucination = true;
+            }
+            statusElement.innerText = `${user} has chosen ${command === "b" ? "Blindness" : command === "c" ? "Confusion" : "Halucination"} for ${streamerInput.value}`;
+        } else if (document.querySelector(`.${user}`).nextSibling.classList.contains("white")) {
+            white = true;
+            if (command === "b") {
+                blindness = true;
+            } else if (command === "c") {
+                confusion = true;
+            } else if (command === "h") {
+                halucination = true;
+            }
+            statusElement.innerText = `${user} has chosen ${command === "b" ? "Blindness" : command === "c" ? "Confusion" : "Halucination"} for Chat`;
+        }
+        activateCurse = false;
+
     }
 }
+
+
+function chooseCurseMsg() {
+    let timeLeft = 9;
+    curseVote.play();
+    ti = setInterval(() => {
+        statusElement.innerText = `Choose a curse! ${timeLeft}s`;
+        timeLeft -= 1;
+        if (timeLeft < 0) {
+            clearInterval(ti);
+            activateCurse = false;
+        }
+    }, 1000);
+}
+
+
+
+
 
 let timeToMove;
 let timer = null;
@@ -347,9 +410,11 @@ function resetChess() {
 
 var movesCount = 1;
 var turn;
+let removeCurse = false;
 abChess.onMovePlayed(updateStatus);
 function updateStatus() {
     pieceSound.play();
+    clearInterval(ti);
     // max nr to display last moves
     const maxDisplayedMoves = 3;
     var status = " to move.";
@@ -361,6 +426,9 @@ function updateStatus() {
     legalMoves.forEach(mov => {
         legalMovesArray.push(mov.start + mov.end);
     });
+
+
+
 
     let movedFrom = abChess.getInfo("movedFrom");
     let movedTo = abChess.getInfo("movedTo");
@@ -381,6 +449,52 @@ function updateStatus() {
         piece = "King";
     }
 
+
+    if (movesCount > 10 && curseArray.length > 0 && !black && !white && curses) {
+        activateCurse = Math.random() < 0.1;
+        if (activateCurse) {
+            chooseCurseMsg();
+        }
+        console.log(activateCurse)
+    }
+
+    if (removeCurse) {
+        if (blindness) {
+            blindness = false;
+            removeB();
+        } else if (confusion) {
+            confusion = false;
+            removeC();
+        } else if (halucination) {
+            halucination = false;
+            removeH();
+        }
+        removeCurse = false;
+        curseOver.play();
+    }
+
+
+    if (black && movesCount % 2 === 0) {
+        if (blindness) {
+            addB();
+        } else if (confusion) {
+            addC();
+        } else if (halucination) {
+            addH();
+        }
+        black = false;
+        removeCurse = true;
+    } else if (white && movesCount % 2 !== 0) {
+        if (blindness) {
+            addB();
+        } else if (confusion) {
+            addC();
+        } else if (halucination) {
+            addH();
+        }
+        white = false;
+        removeCurse = true;
+    }
     let lastMove = `${puppet}(${piece}) from ${movedFrom} to ${movedTo}`
     if (abChess.getActiveColor(movesCount) === "w") {
         const lastMoveChat = document.createElement("p");
@@ -455,6 +569,7 @@ startBtn.addEventListener("click", e => {
         e.target.classList.add("reset-btn");
         statusElement.innerText = `${streamerInput.value} to move`;
         timeBtns.forEach(btn => btn.classList.add("disabled"));
+        permitCurses.classList.add("disabled");
         subBtn.classList.add("disabled");
         vipBtn.classList.add("disabled");
         streamerInput.setAttribute("readonly", true);
@@ -470,8 +585,16 @@ startBtn.addEventListener("click", e => {
         stealPieceSound = new sound("./sounds/piece-attack.mp3");
         startSound = new sound("./sounds/start-game.mp3");
         startSound.play();
+        curseVote = new sound("./sounds/timer.aac");
+        halucinationSound = new sound("./sounds/halucination.mp3");
+        blindnessSound = new sound("./sounds/blindness.mp3");
+        confusionSound = new sound("./sounds/confusion.mp3");
+        curseOver = new sound('./sounds/curse-over.aac');
+        restartGame = new sound('./sounds/restart.mp3');
+        click.play();
     }
 })
+
 
 
 
@@ -481,12 +604,15 @@ startBtn.addEventListener("click", e => {
 // RESET GAME
 modal.addEventListener("click", e => {
     if (e.target.nodeName === "BUTTON") {
+        click.play();
         modal.classList.remove("unhidden");
         if (e.target.id === "modal-yes") {
+            restartGame.play();
             startGame = false;
             timeBtns.forEach(btn => btn.classList.remove("disabled"));
             subBtn.classList.remove("disabled");
             vipBtn.classList.remove("disabled");
+            permitCurses.classList.remove("disabled");
             streamerInput.removeAttribute("readonly");
             resetChess();
             clearInterval(timeInt);
@@ -499,6 +625,15 @@ modal.addEventListener("click", e => {
             } else if (chatScore.innerText == 3) {
                 chatScore.innerText = 0;
             }
+            blindness = false;
+            confusion = false;
+            halucination = false;
+            black = false;
+            white = false;
+            curseArray = ["b", "c", "h"];
+            document.querySelector("#halucination-curse").classList.remove("disabled");
+            document.querySelector("#blind-curse").classList.remove("disabled");
+            document.querySelector("#confuse-curse").classList.remove("disabled");
         }
     }
 })
@@ -515,6 +650,7 @@ modal.addEventListener("click", e => {
 seconds.innerText = defaultSeconds;
 timeBtns.forEach(btn => {
     btn.addEventListener("click", e => {
+        click.play();
         if (e.target.innerText === "+") {
             if (defaultSeconds === 120) {
                 return;
@@ -534,7 +670,6 @@ timeBtns.forEach(btn => {
 
 
 
-// let timeInt = setInterval(ticktock, 1000);
 // check for wins and draws and update scores, UI and database
 function ticktock() {
     seconds.innerText = seconds.innerText - 1;
@@ -572,6 +707,8 @@ function ticktock() {
         extraPointFalse();
         clearInterval(timeInt);
         startGame = false;
+        removeCurse = false;
+        activateCurse = false;
     }
 }
 
@@ -606,6 +743,7 @@ function setTime() {
 // Select checkboxes VIP SUB ALL
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', e => {
+        click.play();
         e.currentTarget.classList.toggle("marked");
         if (vipBtn.classList.contains("marked")) {
             vip = true;
@@ -627,6 +765,7 @@ checkboxes.forEach(checkbox => {
 // SHOW ABOUT AND LEADERBOARD SECTION
 menuBtns.forEach(btn => {
     btn.addEventListener("click", e => {
+        click.play();
         if (e.target.id === "about") {
             about.classList.toggle("show");
             leaderboard.classList.remove("show");
@@ -638,11 +777,13 @@ menuBtns.forEach(btn => {
 })
 
 showMenuBtn.addEventListener("click", () => {
+    click.play();
     showMenuBtn.classList.remove("show");
     hideMenuBtn.classList.add("show");
     menu.classList.add("display-menu");
 })
 hideMenuBtn.addEventListener("click", () => {
+    click.play();
     showMenuBtn.classList.add("show");
     hideMenuBtn.classList.remove("show");
     menu.classList.remove("display-menu");
@@ -661,6 +802,7 @@ let bgCounter = 0;
 const bgBtns = document.querySelectorAll(".change-bg-buttons button");
 bgBtns.forEach(btn => {
     btn.addEventListener('click', e => {
+        click.play();
         if (e.target.classList.contains("prev")) {
             --bgCounter;
             if (bgCounter < 0) {
@@ -696,6 +838,7 @@ const decBtn = document.querySelector(".decrease");
 let size = 1;
 sizeBtns.forEach(btn => {
     btn.addEventListener("click", e => {
+        click.play();
         if (e.target.classList.contains("increase")) {
             decBtn.classList.remove("disabled");
             if (size < 1.3) {
@@ -727,6 +870,7 @@ sizeBtns.forEach(btn => {
 // Enter FullScreen
 const fsBtn = document.querySelector("#full-screen");
 function openFullscreen() {
+    click.play();
     if (!doc.fullscreenElement) {
         docEl.requestFullscreen();
         fsBtn.innerHTML = '<i class="fas fa-compress-arrows-alt"></i>';
@@ -794,3 +938,82 @@ audio.addEventListener("play", () => {
 audio.addEventListener("pause", () => {
     document.querySelector("#fx").classList.remove("unhidden");
 })
+
+
+
+
+// CURSES
+
+document.querySelector("#permit-curses").addEventListener("click", e => {
+    click.play();
+    if (!curses) {
+        e.target.src = "../images/marked.svg";
+        curses = true;
+        document.querySelector("#curses-container").style.filter = "saturate(100%)";
+    } else {
+        e.target.src = "../images/unmarked.svg";
+        curses = false;
+        document.querySelector("#curses-container").style.filter = "saturate(0%)";
+    }
+})
+
+
+
+function addC() {
+    confusionSound.play();
+    chessBoard.style.transform = "rotateY(180deg)";
+    confusionEl.style.opacity = 1;
+    document.querySelector("#confuse-curse").classList.add("disabled");
+}
+
+function removeC() {
+    chessBoard.style.transform = "rotateY(0deg)";
+    confusionEl.style.opacity = 0;
+}
+
+function addB() {
+    blindnessSound.play();
+    document.querySelectorAll(".square__piece").forEach(piece => {
+        piece.classList.add("blindness");
+    })
+    document.querySelector("#blind-curse").classList.add("disabled");
+}
+function removeB() {
+    document.querySelectorAll(".square__piece").forEach(piece => {
+        piece.classList.remove("blindness");
+    })
+}
+
+function addH() {
+    halucinationSound.play();
+    for (let i = 0; i < 50; i++) {
+        let randomNr = Math.floor(Math.random() * piecesArray.length);
+        let halucinationPiece = document.createElement("img");
+        halucinationPiece.style.opacity = 0;
+        halucinationPiece.src = `../images/pieces/${piecesArray[randomNr]}.png`;
+        halucinationPiece.classList.add("halucination");
+        halucinationPiece.style.animation = `halucination ${randomNr + 10}s linear infinite ${randomNr / 2}s`;
+        halucinationPiece.style.left = Math.floor(Math.random() * 700) + "px";
+        halucinationPiece.style.top = Math.floor(Math.random() * 723) + "px";
+        chessBoard.appendChild(halucinationPiece);
+    }
+    for (let i = 0; i < 50; i++) {
+        let randomNr = Math.floor(Math.random() * piecesArray.length);
+        let halucinationPiece = document.createElement("img");
+        halucinationPiece.style.opacity = 0;
+        halucinationPiece.src = `../images/pieces/${piecesArray[randomNr]}.png`;
+        halucinationPiece.classList.add("halucination");
+        halucinationPiece.style.animation = `halucination2 ${randomNr + 10}s linear infinite ${randomNr / 2}s`;
+        halucinationPiece.style.left = Math.floor(Math.random() * 700) + "px";
+        halucinationPiece.style.top = Math.floor(Math.random() * 723) + "px";
+        chessBoard.appendChild(halucinationPiece);
+    }
+    document.querySelector("#halucination-curse").classList.add("disabled");
+}
+
+function removeH() {
+    for (let i = 0; i < 100; i++) {
+        let halucinationPiece = chessBoard.querySelector("img");
+        chessBoard.removeChild(halucinationPiece);
+    }
+}
