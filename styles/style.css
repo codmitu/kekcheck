@@ -132,7 +132,7 @@ body::before {
     position: absolute;
     top: 0;
     left: -50px;
-    background-color: var(--colorBrown2);
+    background-image: linear-gradient(to top, var(--colorOrange1) 60%, var(--colorOrange4));
     animation: loading 1.2s cubic-bezier(0.35, 0.95, 0.795, 0.035) forwards;
 }
 
