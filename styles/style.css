@@ -78,13 +78,12 @@ body {
 
 /* PRELOAD IMAGES FOR JS SLIDESHOW */
 body::before {
-    content: url("../images/backgrounds/bo_play_pattern_@2X.png") url("../images/backgrounds/burried.png") url("../images/backgrounds/carbon_fibre_@2X.png") url("../images/backgrounds/christmas-colour.png") url("../images/backgrounds/circle-blues.png") url("../images/backgrounds/connectwork.png") url("../images/backgrounds/dark_mosaic.png") url("../images/backgrounds/dark_wood.png") url("../images/backgrounds/dark-paths.png") url("../images/backgrounds/diagonal_striped_brick_@2X.png") url("../images/backgrounds/diagonal-squares.png") url("../images/backgrounds/doodles.png") url("../images/backgrounds/ep_naturalblack.png") url("../images/backgrounds/escheresque_ste_@2X.png") url("../images/backgrounds/fancy-cushion.png") url("../images/backgrounds/folk-pattern-black.png") url("../images/backgrounds/grey_wash_wall.png") url("../images/backgrounds/greyfloral.png") url("../images/backgrounds/herringbone.png") url("../images/backgrounds/more-leaves-on-green.png") url("../images/backgrounds/moroccan-flower-dark.png") url("../images/backgrounds/morocco-blue.png") url("../images/backgrounds/oriental-tiles.png") url("../images/backgrounds/pool_table.png")url("../images/backgrounds/pow-star.png") url("../images/backgrounds/prism.png")url("../images/backgrounds/purty_wood.png") url("../images/backgrounds/retina_wood.png") url("../images/backgrounds/robots_@2X.png") url("../images/backgrounds/sakura.png") url("../images/backgrounds/soft_kill_@2X.png") url("../images/backgrounds/tex2res4.png") url("../images/backgrounds/tileable_wood_texture_@2X.png") url("../images/backgrounds/vaio_hard_edge_@2X.png") url("../images/backgrounds/wheat.png") url("../images/backgrounds/wood_pattern.png") url("../images/backgrounds/wormz.png") url("../images/backgrounds/woven_@2X.png") url("../images/backgrounds/1005.png") url("../images/backgrounds/1013.png") url("../images/backgrounds/1015.png") url("../images/backgrounds/1016.png") url("../images/backgrounds/1017.png") url("../images/backgrounds/1024.png") url("../images/backgrounds/1033.png") url("../images/backgrounds/1043.png") url("../images/backgrounds/1048.png") url("../images/backgrounds/1063.png") url("../images/backgrounds/1064.png") url("../images/backgrounds/1067.png") url("../images/backgrounds/2000.png") url("../images/backgrounds/2001.png");
+    content: url("../images/backgrounds/bo_play_pattern_@2X.png") url("../images/backgrounds/burried.png") url("../images/backgrounds/carbon_fibre_@2X.png") url("../images/backgrounds/circle-blues.png") url("../images/backgrounds/connectwork.png") url("../images/backgrounds/dark_mosaic.png") url("../images/backgrounds/dark_wood.png") url("../images/backgrounds/dark-paths.png") url("../images/backgrounds/diagonal-squares.png") url("../images/backgrounds/escheresque_ste_@2X.png") url("../images/backgrounds/fancy-cushion.png") url("../images/backgrounds/folk-pattern-black.png") url("../images/backgrounds/grey_wash_wall.png") url("../images/backgrounds/greyfloral.png") url("../images/backgrounds/more-leaves-on-green.png") url("../images/backgrounds/moroccan-flower-dark.png") url("../images/backgrounds/morocco-blue.png") url("../images/backgrounds/oriental-tiles.png") url("../images/backgrounds/pool_table.png") url("../images/backgrounds/prism.png")url("../images/backgrounds/purty_wood.png") url("../images/backgrounds/retina_wood.png") url("../images/backgrounds/robots_@2X.png") url("../images/backgrounds/sakura.png") url("../images/backgrounds/soft_kill_@2X.png") url("../images/backgrounds/tex2res4.png") url("../images/backgrounds/tileable_wood_texture_@2X.png") url("../images/backgrounds/vaio_hard_edge_@2X.png") url("../images/backgrounds/wheat.png") url("../images/backgrounds/wood_pattern.png") url("../images/backgrounds/woven_@2X.png") url("../images/backgrounds/1005.png") url("../images/backgrounds/1013.png") url("../images/backgrounds/1015.png") url("../images/backgrounds/1016.png") url("../images/backgrounds/1017.png") url("../images/backgrounds/1024.png") url("../images/backgrounds/1033.png") url("../images/backgrounds/1043.png") url("../images/backgrounds/1048.png") url("../images/backgrounds/1063.png") url("../images/backgrounds/1064.png") url("../images/backgrounds/1067.png") url("../images/backgrounds/2000.png") url("../images/backgrounds/2001.png") url("../images/unmarked.svg");
     position: absolute;
     width: 0;
     height: 0;
     left: -100%;
 }
-
 
 
 
@@ -531,7 +530,7 @@ audio {
     height: 20px;
     position: relative;
     cursor: pointer;
-    transform: skewX(-5deg);
+    /* transform: skewX(-5deg); */
 }
 
 .join-selection .vip::after {
@@ -542,9 +541,10 @@ audio {
 
 .join-selection .sub {
     background: url("../images/unmarked.svg") no-repeat top center;
-    transform: skewX(-5deg);
+    /* transform: skewX(-5deg); */
     background-size: 20px;
     width: 30px;
+    height: 20px;
     position: relative;
     cursor: pointer;
 }
@@ -552,7 +552,7 @@ audio {
 .join-selection .sub::after {
     content: 'SUB';
     position: absolute;
-    bottom: -16px;
+    bottom: -20px;
 }
 
 
@@ -1044,12 +1044,13 @@ tr:nth-child(odd) {
 /* CHANGE CHESS BOARD SIZE */
 #change-size {
     position: absolute;
-    right: 0;
+    left: 100px;
     bottom: 0;
     color: rgba(255, 255, 255, 0.496);
     text-shadow: 2px 2px 2px black;
     padding: 0.25rem 0.5rem;
     pointer-events: all;
+    text-align: center;
 }
 
 .disabled {
@@ -1143,7 +1144,13 @@ tr:nth-child(odd) {
 }
 
 
-
+/* SSL LINK */
+a[href*="javascript"] {
+    position: absolute;
+    width: 50px;
+    right: 70px;
+    bottom: 0;
+}
 
 
 

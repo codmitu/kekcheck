@@ -242,10 +242,10 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     if (flags.broadcaster) {
         return;
     }
-    if (vip && !flags.vip) {
+    if ((vip && !flags.vip) || (sub && !flags.subscriber)) {
         return;
     }
-    if (sub && !flags.subscriber) {
+    if ((vip && sub) && (!flags.vip && !flags.subscriber)) {
         return;
     }
     if (command === "join") {
@@ -335,10 +335,10 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
     if (flags.broadcaster) {
         return;
     }
-    if (vip && !flags.vip) {
+    if ((vip && !flags.vip) || (sub && !flags.subscriber)) {
         return;
     }
-    if (sub && !flags.subscriber) {
+    if ((vip && sub) && (!flags.vip && !flags.subscriber)) {
         return;
     }
     if (puppetsArray.some(u => u.username === user) && emotesArray.includes(message)) {
