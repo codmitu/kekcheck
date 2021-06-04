@@ -1503,6 +1503,7 @@ window.AbChess = window.AbChess || function (abId, abOptions) {
             }
             board.hasDraggedStart = false;
         };
+
         /**
          * Square mousedown event handler.
          */

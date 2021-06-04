@@ -408,6 +408,8 @@ function resetChess() {
     }, 1000);
 }
 
+
+
 var movesCount = 1;
 var turn;
 let removeCurse = false;
