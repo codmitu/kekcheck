@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="images/kekCheck-logo.png">
-    <base href="https://www.kekcheck.com">
     <meta name="description" content="Chess game for twitch streamers to play against their chat PogChamp">
     <meta name="author" content="CodMitu">
     <meta name="keywords"
@@ -22,8 +21,8 @@
     <meta property="og:description" content="Chess game for twitch streamers to play against their chat PogChamp">
     <meta property="og:image" content="https://github.com/codmitu/kekCheck/blob/main/images/fb-img.jpg?raw=true">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/AbChess-0.3.0.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/AbChess-0.3.0.css">
 
     <title>kekCheck</title>
 </head>
@@ -41,24 +40,24 @@
     <div id="fx"></div>
 
     <audio controls id="bg-sound">
-        <source src="sounds/rain.mp3" type="audio/mpeg" autoplay="true">
+        <source src="./sounds/rain.mp3" type="audio/mpeg" autoplay="true">
     </audio>
 
     <div id="curses-container">
         <div class="curse">
-            <img src="images/unmarked.svg" style="cursor: pointer" alt="" id="permit-curses" class="not=permited">
+            <img src="./images/unmarked.svg" style="cursor: pointer" alt="" id="permit-curses" class="not=permited">
             <small>Curses</small>
         </div>
         <div class="curse" id="blind-curse">
-            <img src="images/other/blindness.png" title="Blindness" alt="">
+            <img src="./images/other/blindness.png" title="Blindness" alt="">
             <p>!b</p>
         </div>
         <div class="curse" id="confuse-curse">
-            <img src="images/other/confusion.png" title="Confusion" alt="">
+            <img src="./images/other/confusion.png" title="Confusion" alt="">
             <p>!c</p>
         </div>
         <div class="curse" id="halucination-curse">
-            <img src="images/other/halucination.png" title="Halucination" alt="">
+            <img src="./images/other/halucination.png" title="Halucination" alt="">
             <p>!h</p>
         </div>
     </div>
@@ -254,8 +253,8 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
-    <script src="scripts/AbChess-0.3.0.js"></script>
-    <script src="scripts/script.js"></script>
+    <script src="./scripts/AbChess-0.3.0.js"></script>
+    <script src="./scripts/script.js"></script>
     <script>
         setTimeout(() => {
             document.querySelector('.loading-screen').remove();
