@@ -69,7 +69,7 @@ body {
     width: 100%;
     margin: 0;
     font-family: var(--fontSans1);
-    display: flex;
+    /* display: flex; */
     transition: all .5s ease;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -339,9 +339,12 @@ audio {
 
 /* CHESS CONTAINER */
 #chess-container:not(.emote) {
-    margin: auto;
+    /* margin: auto; */
     perspective: 1000px;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     transition: transform 1.5s ease;
     z-index: 2;
 }
@@ -1278,7 +1281,7 @@ a[href*="javascript"] {
 }
 
 
-@media only screen and (min-width: 1069px) {
+@media only screen and (min-width: 1147px) {
 
     a,
     button,
@@ -1288,7 +1291,33 @@ a[href*="javascript"] {
     }
 }
 
-@media only screen and (max-width: 1069px) {
+
+
+@media only screen and (max-width: 1647px) {
+
+    body>* {
+        zoom: 0.9;
+    }
+
+}
+
+@media only screen and (max-width: 1507px) {
+
+    body>* {
+        zoom: 0.8;
+    }
+
+}
+
+@media only screen and (max-width: 1370px) {
+
+    body>* {
+        zoom: 0.7;
+    }
+
+}
+
+@media only screen and (max-width: 1147px) {
 
     body {
         display: none;

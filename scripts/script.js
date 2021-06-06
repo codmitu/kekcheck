@@ -12,8 +12,8 @@ doc.addEventListener("contextmenu", e => {
     e.preventDefault();
 })
 function reportWindowSize() {
-    if (window.innerWidth < 969) {
-        alert("need a browser wider than 1069px to play")
+    if (window.innerWidth < 1147) {
+        alert("need a browser wider than 1147px to play")
     }
 }
 reportWindowSize();
