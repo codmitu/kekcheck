@@ -2,6 +2,8 @@
 let backgroundsArray = ["1067", "wheat", "tileable_wood_texture_@2X", "robots_@2X", "moroccan-flower-dark", "folk-pattern-black", "dark_mosaic", "bo_play_pattern_@2X", "burried", "carbon_fibre_@2X", "1064", "circle-blues", "connectwork", "dark_wood", "dark-paths", "1016", "diagonal-squares", "1043", "1033", "escheresque_ste_@2X", "1017", "fancy-cushion", "grey_wash_wall", "greyfloral", "1024", "more-leaves-on-green", "morocco-blue", "1005", "oriental-tiles", "pool_table", "1013", "prism", "purty_wood", "retina_wood", "1063", "sakura", "soft_kill_@2X", "1015", "tex2res4", "vaio_hard_edge_@2X", "wood_pattern", "1048", "woven_@2X", "2000", "2001"];
 let emotesArray = ["4Head", "ArgieB8", "BabyRage", "BibleThump", "BrokeBack", "cmonBruh", "CoolStoryBob", "CrreamAwk", "DxCat", "EleGiggle", "FailFish", "FBPass", "FootYellow", "Jebaited", "Kappa", "KonCha", "LUL", "NotLikeThis", "PogChamp", "PunOko", "ResidentSleeper", "RlyTho", "SeemsGood", "StinkyGlitch", "SwiftRage", "TheIlluminati", "TriHard", "WutFace", "CantLook", "FUUU", "hi", "lmao", "LOL", "Pika", "WhyYouRage", "YEP"];
 let piecesArray = ["bb", "bk", "bn", "bp", "bq", "br", "wb", "wk", "wn", "wp", "wq", "wr"];
+
+// works only with kekcheck.com domain
 const url = "https://kekcheck-d237d-default-rtdb.europe-west1.firebasedatabase.app/";
 
 var doc = window.document;
@@ -347,16 +349,13 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
         setTimeout(() => {
             puppetEmote.style.background = "";
         }, 3000);
-        return;
     } else if (joinersArray.some(u => u.username === user) && emotesArray.includes(message)) {
         joinerEmote = document.querySelector(`.${user}`);
         joinerEmote.style.background = `url("./images/emotes/${message}.png") no-repeat center center/contain`;
         setTimeout(() => {
             joinerEmote.style.background = "";
         }, 3000);
-        return;
-    }
-    else if (legalMovesArray.indexOf(message) > -1) {
+    } else if (legalMovesArray.indexOf(message) > -1) {
         votedMovesArray.push(message)
         oldMove = votedMove;
         votedMove = mostOccuredValue(votedMovesArray);
@@ -381,7 +380,7 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
 
 
 
-// ADD PUPPETS TO CHESS BOARD
+// ADD PLAYERS TO CHESS BOARD
 function addSpectatorsToChessboard() {
     for (let i = 0; i < 32; i++) {
         const randomNr = Math.floor(Math.random() * joinersArray.length);
@@ -428,9 +427,6 @@ function updateStatus() {
     legalMoves.forEach(mov => {
         legalMovesArray.push(mov.start + mov.end);
     });
-
-
-
 
     let movedFrom = abChess.getInfo("movedFrom");
     let movedTo = abChess.getInfo("movedTo");
@@ -737,11 +733,6 @@ function setTime() {
 
 
 
-
-
-
-
-
 // Select checkboxes VIP SUB ALL
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', e => {
@@ -945,7 +936,6 @@ audio.addEventListener("pause", () => {
 
 
 // CURSES
-
 document.querySelector("#permit-curses").addEventListener("click", e => {
     click.play();
     if (!curses) {
