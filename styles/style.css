@@ -69,7 +69,7 @@ body {
     width: 100%;
     margin: 0;
     font-family: var(--fontSans1);
-    /* display: flex; */
+    display: flex;
     transition: all .5s ease;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -96,7 +96,7 @@ body::before {
     z-index: 1000;
     background-color: var(--colorBrown1);
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     place-items: center;
@@ -339,12 +339,13 @@ audio {
 
 /* CHESS CONTAINER */
 #chess-container:not(.emote) {
-    /* margin: auto; */
+    margin: auto;
     perspective: 1000px;
-    position: absolute;
+    /* position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* transform-origin: center center; */
     transition: transform 1.5s ease;
     z-index: 2;
 }
