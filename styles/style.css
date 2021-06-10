@@ -1050,7 +1050,7 @@ tr:nth-child(odd) {
 /* CHANGE CHESS BOARD SIZE */
 #change-size {
     position: absolute;
-    left: 100px;
+    right: 0;
     bottom: 0;
     color: rgba(255, 255, 255, 0.496);
     text-shadow: 2px 2px 2px black;
@@ -1155,6 +1155,13 @@ a[href*="javascript"] {
     position: absolute;
     width: 50px;
     right: 70px;
+    bottom: 0;
+}
+
+#gogetssl-animated-seal {
+    position: absolute;
+    width: 50px;
+    right: 0px;
     bottom: 0;
 }
 
