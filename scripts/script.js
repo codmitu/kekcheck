@@ -250,7 +250,7 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     if ((vip && sub) && (!flags.vip && !flags.subscriber)) {
         return;
     }
-    if (command === "play") {
+    if (command === "join") {
         if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user) || puppetsArray.some(u => u.username === user)) {
             return;
         }

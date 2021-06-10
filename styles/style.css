@@ -461,16 +461,15 @@ audio {
     font-weight: 600;
     font-family: var(--fontSans2);
     text-align: center;
-    font-size: 22px;
+    font-size: 1rem;
     text-overflow: clip;
     overflow: visible;
-    letter-spacing: -1px;
+    text-shadow: 1px 1px 0 black;
 }
 
 
 .nameText {
     font-size: 0.9rem;
-    letter-spacing: -1px;
     position: absolute;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -479,6 +478,7 @@ audio {
     font-family: var(--fontSans2);
     text-align: center;
     width: 100%;
+    text-shadow: 1px 1px 0 black;
 }
 
 .emote {
@@ -490,7 +490,6 @@ audio {
     top: -50%;
     z-index: 3;
     pointer-events: none;
-
 }
 
 .emote2 {
@@ -502,7 +501,6 @@ audio {
     top: -20%;
     z-index: 3;
     pointer-events: none;
-
 }
 
 
