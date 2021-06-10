@@ -250,7 +250,7 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     if ((vip && sub) && (!flags.vip && !flags.subscriber)) {
         return;
     }
-    if (command === "join") {
+    if (command === "play") {
         if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user) || puppetsArray.some(u => u.username === user)) {
             return;
         }
@@ -265,7 +265,7 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
         el.appendChild(emote);
 
         // SPREAD THEM RANDOMLY
-        el.style.left = Math.floor(Math.random() * 480) + "px";
+        el.style.left = Math.floor(Math.random() * 460) + "px";
         el.style.top = Math.floor(Math.random() * 580) + "px";
         spectatorsContainer.appendChild(el);
 
