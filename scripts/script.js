@@ -251,7 +251,8 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
         return;
     }
     if (command === "join") {
-        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user) || puppetsArray.some(u => u.username === user)) {
+        if (joinersArray.length >= 300 || joinersArray.some(u => u.username === user) ||
+            puppetsArray.some(u => u.username === user)) {
             return;
         }
         // ADD CHAT AS SPECTATORS on !join command 
