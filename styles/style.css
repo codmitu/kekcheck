@@ -215,7 +215,7 @@ audio {
     top: 1rem;
     right: 1rem;
     transition: .3s ease;
-    z-index: 3;
+    z-index: 5;
 
 }
 
@@ -240,6 +240,7 @@ audio {
 #streamer {
     width: 400px;
     height: 800px;
+    max-height: 90vh;
     position: absolute;
     top: 50%;
     left: 0;
@@ -300,7 +301,7 @@ audio {
     border: 10px ridge rgb(112, 135, 205);
     box-shadow: inset 5px 5px 10px rgb(138, 138, 138);
     overflow: hidden;
-
+    transform-origin: left;
 }
 
 #streamer #streamer-last-moves p {
@@ -341,13 +342,9 @@ audio {
 #chess-container:not(.emote) {
     margin: auto;
     perspective: 1000px;
-    /* position: absolute;
-    top: 50%;
-    left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    /* transform-origin: center center; */
     transition: transform 1.5s ease;
     z-index: 2;
+    transform-origin: top 80% left 0;
 }
 
 
@@ -406,7 +403,6 @@ audio {
     position: relative;
     padding: 50px;
     border-radius: 20px;
-
 }
 
 /* box-shadow: 0.6em 0.6em 1.2em #d2dce9, -0.5em -0.5em 1em #ffffff; */
@@ -694,6 +690,7 @@ audio {
 #chat {
     width: 400px;
     height: 800px;
+    max-height: 90vh;
     position: absolute;
     top: 50%;
     right: 0;
@@ -739,12 +736,13 @@ audio {
 #chat #spectators {
     color: white;
     width: 120%;
-    transform: translateX(-50px);
+    margin-right: 50px;
     height: 600px;
     display: flex;
     place-content: center;
     place-items: center;
     position: relative;
+    transform-origin: right;
 }
 
 .spectator {
@@ -795,6 +793,7 @@ audio {
     border: 10px ridge rgb(112, 135, 205);
     box-shadow: inset 5px 5px 10px rgb(138, 138, 138);
     overflow: hidden;
+    transform-origin: right;
 }
 
 #chat #chat-last-moves p {
@@ -837,7 +836,7 @@ audio {
     right: 0;
     box-shadow: inset 1px 1px 200px 0px rgba(0, 0, 0, 0.475),
         inset -1px -1px 200px 0px rgba(0, 0, 0, 0.461);
-    z-index: 2;
+    z-index: 5;
     pointer-events: none;
 }
 
@@ -1302,32 +1301,44 @@ a[href*="javascript"] {
 
 @media only screen and (max-width: 1647px) {
 
-    body>* {
-        zoom: 0.9;
+    #spectators,
+    #chess-container,
+    #chat-last-moves,
+    #streamer-last-moves {
+        transform: scale(0.9);
     }
 
 }
 
 @media only screen and (max-width: 1507px) {
 
-    body>* {
-        zoom: 0.8;
+    #spectators,
+    #chess-container,
+    #chat-last-moves,
+    #streamer-last-moves {
+        transform: scale(0.8);
     }
 
 }
 
 @media only screen and (max-width: 1370px) {
 
-    body>* {
-        zoom: 0.7;
+    #spectators,
+    #chess-container,
+    #chat-last-moves,
+    #streamer-last-moves {
+        transform: scale(0.7);
     }
 
 }
 
 @media only screen and (max-width: 1147px) {
 
-    body {
-        display: none;
+    #spectators,
+    #chess-container,
+    #chat-last-moves,
+    #streamer-last-moves {
+        transform: scale(0.6);
     }
 
 }
