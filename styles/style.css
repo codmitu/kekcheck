@@ -1334,11 +1334,8 @@ a[href*="javascript"] {
 
 @media only screen and (max-width: 1147px) {
 
-    #spectators,
-    #chess-container,
-    #chat-last-moves,
-    #streamer-last-moves {
-        transform: scale(0.6);
+    body{
+        display: none;
     }
 
 }
