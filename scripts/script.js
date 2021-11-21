@@ -26,7 +26,7 @@ const squares = document.querySelector(".squares");
 
 const form = document.querySelector("form");
 let submited = false;
-const streamerInput = document.querySelector("#twitch-channel-input");
+// const streamerInput = document.querySelector("#twitch-channel-input");
 
 // Streamer last 3 moves container
 const streamerMoves = document.querySelector("#streamer-last-moves");
