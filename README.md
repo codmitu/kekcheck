@@ -1,6 +1,6 @@
 # kekCheck
 chess game for twitch community
-https://www.kekcheck.com
+https://codmitu.github.io/kekcheck/
 
  Documentation:
  https://github.com/instafluff/ComfyJS
